@@ -72,7 +72,7 @@ class OperationHeaderView(context: Context, val spd: Spd) : FrameLayout(context)
 
         val llAttachment = findViewById<LinearLayout>(R.id.llAttachment)
         llAttachment.safeClicks().subscribe { _ ->
-            if (spd.spdFj.isEmpty()) {
+            if (spd.spdFj == null || spd.spdFj.isEmpty()) {
                 ToastUtils.showShort("无附件")
                 return@subscribe
             }
