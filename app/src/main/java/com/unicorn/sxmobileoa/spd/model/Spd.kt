@@ -16,7 +16,7 @@ data class Spd(
         val spdXx: SpdXx,
         val nodeModel_1: NodeModel_1?,
         val nodeModel_2: NodeModel_2?,   // 自定义节点
-        val spdFj: List<Fj>,
+        val spdFj: List<Fj>?,
         val operType: String,
         val spdMb: SpdMb
 ) : Serializable

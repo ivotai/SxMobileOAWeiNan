@@ -41,11 +41,14 @@
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
-        <TextView
+        <EditText
             android:id="@+id/tvBt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@null"
+            android:enabled="false"
+            android:inputType="text"
             android:textColor="@color/md_grey_400"
             android:textSize="14dp" />
 
@@ -138,7 +141,7 @@
         <TextView
             android:layout_width="@dimen/detail_width"
             android:layout_height="wrap_content"
-            android:text="非在编人民"
+            android:text="非在编人员"
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
@@ -262,9 +265,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="1px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
         android:background="@color/md_white"
         android:orientation="horizontal"
         android:padding="16dp">

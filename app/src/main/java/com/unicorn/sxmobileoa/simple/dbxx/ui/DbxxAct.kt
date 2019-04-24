@@ -7,6 +7,7 @@ import com.unicorn.sxmobileoa.app.Key
 import com.unicorn.sxmobileoa.app.mess.RxBus
 import com.unicorn.sxmobileoa.app.safeClicks
 import com.unicorn.sxmobileoa.app.ui.BaseAct
+import com.unicorn.sxmobileoa.header.gcsq.GcsqAct
 import com.unicorn.sxmobileoa.header.qjsq.QjsqAct
 import com.unicorn.sxmobileoa.header.ycsq.YcsqAct
 import dart.DartModel
@@ -23,8 +24,13 @@ class DbxxAct : BaseAct() {
 
     @SuppressLint("CheckResult")
     override fun bindIntent() {
-        if (model.menu.text in listOf("请假申请", "用车申请")) {
-            val cls = if (model.menu.text == "请假申请") QjsqAct::class.java else YcsqAct::class.java
+        if (model.menu.text in listOf("请假申请", "用车申请", "公出申请")) {
+            val cls = when (model.menu.text) {
+                "请假申请" -> QjsqAct::class.java
+                "用车申请" -> YcsqAct::class.java
+                "公出申请" -> GcsqAct::class.java
+                else -> GcsqAct::class.java
+            }
             titleBar.setOperation("新建").safeClicks().subscribe { _ ->
                 startActivity(Intent(this, cls).apply {
                     putExtra(Key.menu, model.menu)
@@ -34,6 +40,7 @@ class DbxxAct : BaseAct() {
             }
         }
     }
+
 
     override fun registerEvent() {
         RxBus.get().registerEventOnMain(IndexCount::class.java, this, Consumer {
