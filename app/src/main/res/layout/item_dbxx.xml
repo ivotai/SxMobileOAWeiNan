@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/md_white"
+    tools:ignore="SpUsage,ContentDescription,HardcodedText">
+
+    <TextView
+        android:id="@+id/tvBt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="重庆时高级人民法院关于什么"
+        android:textColor="@color/md_black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/ivImage"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:src="@mipmap/sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvBt"
+        app:layout_constraintTop_toTopOf="@+id/tvBt" />
+
+    <TextView
+        android:id="@+id/tvNodeName"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="核稿"
+        android:gravity="center"
+        android:textColor="@color/md_black"
+        android:textSize="13dp"
+        app:layout_constraintEnd_toEndOf="@+id/ivImage"
+        app:layout_constraintStart_toStartOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="12dp"
+        android:background="@color/md_grey_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNodeName" />
+
+    <TextView
+        android:id="@+id/tvWh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="文号：”sdfsdf"
+        android:textColor="@color/md_grey_400"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/tvBt"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/tvNgrName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="拟稿人：审判管理员"
+        android:textColor="@color/md_grey_400"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/tvWh" />
+
+    <TextView
+        android:id="@+id/tvCjrq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="12dp"
+        android:text="2017-7-25"
+        android:textColor="@color/md_grey_400"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvWh"
+        app:layout_constraintTop_toBottomOf="@+id/tvWh" />
+
+    <TextView
+        android:id="@+id/tvNgrDept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="拟稿部门：办公室"
+        android:textColor="@color/md_grey_400"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/tvNgrName"
+        app:layout_constraintTop_toTopOf="@+id/tvCjrq" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</android.support.constraint.ConstraintLayout>

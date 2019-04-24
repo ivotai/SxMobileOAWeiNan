@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_height">100dp</dimen>
+    <dimen name="main_margin">12dp</dimen>
+    <dimen name="main_text_size">18dp</dimen>
+    <dimen name="detail_width">100dp</dimen>
+</resources>
