@@ -9,6 +9,7 @@ class Wply(val spd: Spd, @IntRange(from = 1, to = 5) val position: Int) {
 
     val key_wpmc = "wpmc${position}_input"
     val key_gg = "gg${position}_input"
+    val key_sqdw = "sqdw${position}_input"
     val key_sqsl = "sqsl${position}_input"
     val key_slsl = "slsl${position}_input"
     val key_zkff = "zkff${position}_input"
@@ -37,6 +38,11 @@ class Wply(val spd: Spd, @IntRange(from = 1, to = 5) val position: Int) {
         get() = spd.get(key_zkff)
         set(value) {
             spd.set(key_zkff, value)
+        }
+    var sqdw
+        get() = spd.get(key_sqdw)
+        set(value) {
+            spd.set(key_sqdw, value)
         }
 
 }

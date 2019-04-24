@@ -1,5 +1,5 @@
-公出申请   物品领用  设备维修   设备领用 设备报废
-
+物品领用  设备维修   设备领用 设备报废
+onCreateViewHolder will be called many times.
 
 ------------------------------
 10/31

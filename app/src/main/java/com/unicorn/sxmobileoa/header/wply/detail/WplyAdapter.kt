@@ -1,24 +1,57 @@
 package com.unicorn.sxmobileoa.header.wply.detail
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.LifecycleOwner
+import android.content.Intent
+import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.unicorn.sxmobileoa.R
-import com.unicorn.sxmobileoa.app.Global
+import com.unicorn.sxmobileoa.app.*
+import com.unicorn.sxmobileoa.app.Key.code
+import com.unicorn.sxmobileoa.app.Key.key
+import com.unicorn.sxmobileoa.app.Key.title
 import com.unicorn.sxmobileoa.app.mess.MyHolder
-import com.unicorn.sxmobileoa.app.textChanges2
+import com.unicorn.sxmobileoa.app.mess.RxBus
+import com.unicorn.sxmobileoa.app.mess.model.CodeResult
+import com.unicorn.sxmobileoa.app.mess.model.TextResult
 import com.unicorn.sxmobileoa.header.wply.model.Wply
+import com.unicorn.sxmobileoa.select.code.ui.CodeAct
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.item_wply.*
+import java.nio.charset.CoderMalfunctionError
+import java.nio.charset.CoderResult
 
-class WplyAdapter : BaseQuickAdapter<Wply, MyHolder>(R.layout.item_wply) {
+class WplyAdapter(val isCreate: Boolean) : BaseQuickAdapter<Wply, MyHolder>(R.layout.item_wply) {
+
+    override fun bindToRecyclerView(recyclerView: RecyclerView) {
+        super.bindToRecyclerView(recyclerView)
+        RxBus.get().registerEvent(CodeResult::class.java, recyclerView.context as LifecycleOwner, Consumer {
+            ToastUtils.showShort(it.key)
+            val str = it.key.substring(0, it.key.indexOf("_"))
+            val pos = str.toInt()
+            if (pos == -1) return@Consumer
+            val item = data[pos]
+            item.wpmc = it.result.text
+            item.gg = it.result.`val`
+            item.sqdw = it.result.code
+            notifyItemChanged(pos)
+        })
+    }
 
     override fun convert(helper: MyHolder, item: Wply) {
         helper.apply {
             tvWpmc.text = item.wpmc
-            tvGg.text = item.gg
-            tvSqsl.text = item.sqsl
+            tvGg.setText(item.gg)
+            tvSqsl.setText(item.sqsl)
+            tvSqdw.setText(item.sqdw)
             tvSlsl.setText(item.slsl)
             tvZkff.setText(item.zkff)
+
+            tvGg.isEnabled = isCreate
+            tvSqsl.isEnabled = isCreate
+            tvSqdw.isEnabled = isCreate
 
             // 是否可以编辑
             val nodeId = Global.spd.nodeModel_1!!.nodeid
@@ -29,27 +62,68 @@ class WplyAdapter : BaseQuickAdapter<Wply, MyHolder>(R.layout.item_wply) {
     }
 
     @SuppressLint("CheckResult")
-    override fun onCreateDefViewHolder(parent: ViewGroup?, viewType: Int): MyHolder {
-        val helper = super.onCreateDefViewHolder(parent, viewType)
-        helper.tvSlsl.textChanges2().filter { it.isNotEmpty() }.subscribe {
-            val adapterPos = helper.adapterPosition
-            if (adapterPos == -1) return@subscribe
-            val target = mData[adapterPos]
-            target.slsl = it
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
+        return super.onCreateViewHolder(parent, viewType).apply {
+            if (isCreate) {
+                tvWpmc.safeClicks().subscribe {
+                    mContext.startActivity(Intent(mContext, CodeAct::class.java).apply {
+                        putExtra(Key.title, "物品名称")
+                        putExtra(Key.code, "WPLY_WP")
+                        putExtra(Key.key, "${adapterPosition}_select")
+                    })
+                }
+                tvGg.textChanges2().subscribe {
+                    if (adapterPosition == -1) return@subscribe
+                    mData[adapterPosition].gg = it
+                }
+                tvSqsl.textChanges2().subscribe {
+                    if (adapterPosition == -1) return@subscribe
+                    mData[adapterPosition].sqsl = it
+                }
+                tvSqdw.textChanges2().subscribe {
+                    if (adapterPosition == -1) return@subscribe
+                    mData[adapterPosition].sqdw = it
+                }
+                // 神奇的闭包
+//                tvWpmc.clickCode("物品名称", "WPLY_WP", "${adapterPosition}_select")
+            }
+            tvSlsl.textChanges2().subscribe {
+                if (adapterPosition == -1) return@subscribe
+                mData[adapterPosition].slsl = it
+            }
+            tvZkff.textChanges2().subscribe {
+                if (adapterPosition == -1) return@subscribe
+                mData[adapterPosition].zkff = it
+            }
         }
-        helper.tvZkff.textChanges2().filter { it.isNotEmpty() }.subscribe {
-            val adapterPos = helper.adapterPosition
-            if (adapterPos == -1) return@subscribe
-            val target = mData[adapterPos]
-            target.zkff = it
-        }
-        return helper
     }
+
+//    @SuppressLint("CheckResult")
+//    override fun onCreateDefViewHolder(parent: ViewGroup?, viewType: Int): MyHolder {
+//        val helper = super.onCreateDefViewHolder(parent, viewType)
+//        helper.apply {
+//            if (isCreate) {
+//                tvWpmc.clickCode("物品名称", "WPLY_WP", "_select")
+//                RxBus.get().registerEvent(CodeResult::class.java, mContext as LifecycleOwner, Consumer {
+//                    ToastUtils.showShort(it.key)
+//                    val pos = helper.adapterPosition
+//                    if (pos == -1) return@Consumer
+//                    val item = data[pos]
+//                    item.wpmc = it.result.text
+//                    item.gg = it.result.`val`
+//                    item.sqdw = it.result.code
+//                    notifyItemChanged(pos)
+//                })
+//            }
+//        }
+//
+//
+//        return helper
+//    }
 
 }
 
 
-//            tvWpmc.clickCode("物品名称", "WPLY_WP", item.key_wpmc)
 //RxBus.get().registerEvent(TextResult::class.java, mContext as LifecycleOwner, Consumer {
 //    item.spd.set(it.key, it.result)
 //    notifyDataSetChanged()

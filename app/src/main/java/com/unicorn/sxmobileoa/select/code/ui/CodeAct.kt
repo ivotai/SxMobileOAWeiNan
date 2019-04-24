@@ -1,5 +1,6 @@
 package com.unicorn.sxmobileoa.select.code.ui
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.LinearLayoutManager
 import com.unicorn.sxmobileoa.R
 import com.unicorn.sxmobileoa.app.addDefaultItemDecoration
@@ -27,9 +28,12 @@ class CodeAct : BaseAct() {
         }
     }
 
+    @SuppressLint("CheckResult")
     override fun bindIntent() {
         GetCode(model.code).toMaybe(this)
-                .subscribe { mAdapter.setNewData(it) }
+                .subscribe {
+                    mAdapter.setNewData(it)
+                }
     }
 
     override val layoutId = R.layout.title_recycler

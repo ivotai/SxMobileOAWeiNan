@@ -15,10 +15,12 @@ class WplyDetailAct : BaseAct() {
 
     override val layoutId = R.layout.title_recycler
 
-    val mAdapter = WplyAdapter()
+    lateinit var mAdapter: WplyAdapter
+
 
     override fun initViews() {
         titleBar.setTitle("物品领用详情")
+        mAdapter = WplyAdapter(intent.getBooleanExtra(Key.isCreate, false))
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@WplyDetailAct)
             mAdapter.bindToRecyclerView(this)
@@ -31,7 +33,9 @@ class WplyDetailAct : BaseAct() {
 
     override fun bindIntent() {
         val spd = Global.spd
-        val wpgs = spd.get(Key.wpgs_input).toInt()
+        var wpgs_input = spd.get(Key.wpgs_input)
+        if (wpgs_input.isEmpty()) wpgs_input = "5"
+        val wpgs = wpgs_input.toInt()
         IntRange(1, wpgs)
                 .map { Wply(spd = spd, position = it) }
                 .let { mAdapter.setNewData(it) }
