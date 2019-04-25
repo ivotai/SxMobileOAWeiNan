@@ -30,15 +30,15 @@ class App : Application() {
     }
 
     private fun setErrorHandler() {
-//        RxJavaPlugins.setErrorHandler {
-//            if (it is OnErrorNotImplementedException) {
-//                when (it.cause) {
-//                    is SocketTimeoutException -> ToastUtils.showShort("连接超时")
-//                    is JsonSyntaxException -> ToastUtils.showShort("解析异常")
-////                    else -> ToastUtils.showLong(it.cause.toString())
-//                }
-//            }
-//        }
+        RxJavaPlugins.setErrorHandler {
+            if (it is OnErrorNotImplementedException) {
+                when (it.cause) {
+                    is SocketTimeoutException -> ToastUtils.showShort("连接超时")
+                    is JsonSyntaxException -> ToastUtils.showShort("解析异常")
+                    else -> ToastUtils.showLong(it.cause.toString())
+                }
+            }
+        }
     }
 
     override fun attachBaseContext(base: Context?) {

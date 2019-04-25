@@ -97,28 +97,6 @@ class WplyAdapter(val isCreate: Boolean) : BaseQuickAdapter<Wply, MyHolder>(R.la
         }
     }
 
-//    @SuppressLint("CheckResult")
-//    override fun onCreateDefViewHolder(parent: ViewGroup?, viewType: Int): MyHolder {
-//        val helper = super.onCreateDefViewHolder(parent, viewType)
-//        helper.apply {
-//            if (isCreate) {
-//                tvWpmc.clickCode("物品名称", "WPLY_WP", "_select")
-//                RxBus.get().registerEvent(CodeResult::class.java, mContext as LifecycleOwner, Consumer {
-//                    ToastUtils.showShort(it.key)
-//                    val pos = helper.adapterPosition
-//                    if (pos == -1) return@Consumer
-//                    val item = data[pos]
-//                    item.wpmc = it.result.text
-//                    item.gg = it.result.`val`
-//                    item.sqdw = it.result.code
-//                    notifyItemChanged(pos)
-//                })
-//            }
-//        }
-//
-//
-//        return helper
-//    }
 
 }
 

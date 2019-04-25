@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.unicorn.sxmobileoa.R
 import com.unicorn.sxmobileoa.app.Global
+import com.unicorn.sxmobileoa.app.Key
 import com.unicorn.sxmobileoa.app.ui.BaseAct
 import com.unicorn.sxmobileoa.header.sbbf.model.Sbbf
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
@@ -13,9 +14,10 @@ class SbbfDetailAct : BaseAct() {
 
     override val layoutId = R.layout.title_recycler
 
-    val mAdapter = SbbfDetailAdapter()
+    private lateinit var mAdapter : SbbfDetailAdapter
 
     override fun initViews() {
+        mAdapter = SbbfDetailAdapter(intent.getBooleanExtra(Key.isCreate,false))
         titleBar.setTitle("设备报废详情")
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SbbfDetailAct)
