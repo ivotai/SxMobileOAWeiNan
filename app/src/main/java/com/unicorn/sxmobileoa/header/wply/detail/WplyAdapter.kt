@@ -28,7 +28,6 @@ class WplyAdapter(val isCreate: Boolean) : BaseQuickAdapter<Wply, MyHolder>(R.la
     override fun bindToRecyclerView(recyclerView: RecyclerView) {
         super.bindToRecyclerView(recyclerView)
         RxBus.get().registerEvent(CodeResult::class.java, recyclerView.context as LifecycleOwner, Consumer {
-            ToastUtils.showShort(it.key)
             val str = it.key.substring(0, it.key.indexOf("_"))
             val pos = str.toInt()
             if (pos == -1) return@Consumer

@@ -40,7 +40,10 @@
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
-        <TextView
+        <EditText
+            android:background="@null"
+            android:inputType="text"
+            android:enabled="false"
             android:id="@+id/tvBt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

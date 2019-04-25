@@ -87,6 +87,9 @@ class SbwxInfoView(context: Context, menu: Menu, spd: Spd, isCreate: Boolean) : 
             ToastUtils.showShort("标题不能为空")
             return false
         }
+        spd.spdXx.apply {
+            bt = tvBt.trimText()
+        }
         pairs.forEach { pair ->
             pair.apply {
                 spd.set(key, textView.trimText())

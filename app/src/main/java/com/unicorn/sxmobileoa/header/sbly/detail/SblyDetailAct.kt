@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.unicorn.sxmobileoa.R
 import com.unicorn.sxmobileoa.app.Global
+import com.unicorn.sxmobileoa.app.Key
 import com.unicorn.sxmobileoa.app.ui.BaseAct
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import kotlinx.android.synthetic.main.title_recycler.*
@@ -12,9 +13,10 @@ class SblyDetailAct : BaseAct() {
 
     override val layoutId = R.layout.title_recycler
 
-    val mAdapter = SblyDetailAdapter()
+    private lateinit var mAdapter: SblyDetailAdapter
 
     override fun initViews() {
+        mAdapter = SblyDetailAdapter(intent.getBooleanExtra(Key.isCreate, false))
         titleBar.setTitle("设备领用详情")
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SblyDetailAct)
