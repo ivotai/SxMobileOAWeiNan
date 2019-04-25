@@ -22,7 +22,7 @@ class WplyDetailAct : BaseAct() {
         titleBar.setTitle("物品领用详情")
         mAdapter = WplyAdapter(intent.getBooleanExtra(Key.isCreate, false))
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@WplyDetailAct)
+            layoutManager = LinearLayoutManager(this@WplyDetailAct) as LinearLayoutManager
             mAdapter.bindToRecyclerView(this)
             HorizontalDividerItemDecoration.Builder(context)
                     .colorResId(R.color.md_grey_100)

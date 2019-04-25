@@ -40,7 +40,10 @@
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
-        <TextView
+        <EditText
+            android:background="@null"
+            android:enabled="false"
+            android:inputType="text"
             android:id="@+id/tvBt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -141,7 +144,10 @@
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
-        <TextView
+        <EditText
+            android:background="@null"
+            android:enabled="false"
+            android:inputType="text"
             android:id="@+id/tvWxxq"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -167,7 +173,10 @@
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
-        <TextView
+        <EditText
+            android:background="@null"
+            android:enabled="false"
+            android:inputType="text"
             android:id="@+id/tvWxff"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -193,7 +202,10 @@
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
-        <TextView
+        <EditText
+            android:background="@null"
+            android:enabled="false"
+            android:inputType="text"
             android:id="@+id/tvWxysjf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
