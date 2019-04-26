@@ -3,6 +3,7 @@ package com.unicorn.sxmobileoa.header.wply.detail
 import android.annotation.SuppressLint
 import android.arch.lifecycle.LifecycleOwner
 import android.content.Intent
+import android.provider.Settings
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.blankj.utilcode.util.ToastUtils
@@ -23,8 +24,10 @@ import kotlinx.android.synthetic.main.item_wply.*
 import java.nio.charset.CoderMalfunctionError
 import java.nio.charset.CoderResult
 
-class WplyAdapter(val isCreate: Boolean) : BaseQuickAdapter<Wply, MyHolder>(R.layout.item_wply) {
+class WplyAdapter : BaseQuickAdapter<Wply, MyHolder>(R.layout.item_wply) {
 
+    private val nodeId = Global.spd.nodeModel_1!!.nodeid
+    private val canEditForCreator = nodeId == "OA_FLOW_HQGL_WPLY_SQ"
     override fun bindToRecyclerView(recyclerView: RecyclerView) {
         super.bindToRecyclerView(recyclerView)
         RxBus.get().registerEvent(CodeResult::class.java, recyclerView.context as LifecycleOwner, Consumer {
@@ -48,12 +51,11 @@ class WplyAdapter(val isCreate: Boolean) : BaseQuickAdapter<Wply, MyHolder>(R.la
             tvSlsl.setText(item.slsl)
             tvZkff.setText(item.zkff)
 
-            tvGg.isEnabled = isCreate
-            tvSqsl.isEnabled = isCreate
-            tvSqdw.isEnabled = isCreate
+            tvGg.isEnabled = canEditForCreator
+            tvSqsl.isEnabled = canEditForCreator
+            tvSqdw.isEnabled = canEditForCreator
 
             // 是否可以编辑
-            val nodeId = Global.spd.nodeModel_1!!.nodeid
             val canEdit = nodeId in listOf("OA_FLOW_HQGL_WPLY_KG", "OA_FLOW_HQGL_WPLY_WZGLYBL", "OA_FLOW_HQGL_WPLY_CGFF", "OA_FLOW_HQGL_WPLY_BGSSP", "OA_FLOW_HQGL_WPLY_HQFWZXZWK")
             tvSlsl.isEnabled = canEdit
             tvZkff.isEnabled = canEdit
@@ -63,7 +65,7 @@ class WplyAdapter(val isCreate: Boolean) : BaseQuickAdapter<Wply, MyHolder>(R.la
     @SuppressLint("CheckResult")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         return super.onCreateViewHolder(parent, viewType).apply {
-            if (isCreate) {
+            if (canEditForCreator) {
                 tvWpmc.safeClicks().subscribe {
                     mContext.startActivity(Intent(mContext, CodeAct::class.java).apply {
                         putExtra(Key.title, "物品名称")

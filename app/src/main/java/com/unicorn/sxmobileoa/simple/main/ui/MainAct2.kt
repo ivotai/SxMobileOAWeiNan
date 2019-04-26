@@ -33,10 +33,11 @@ class MainAct2 : BaseAct() {
                 .addItem(NormalItemView(this).apply { initialize(R.mipmap.home, R.mipmap.home_select, "首页") })
                 .addItem(NormalItemView(this).apply { initialize(R.mipmap.notice, R.mipmap.notice_select, "公告") })
                 .addItem(NormalItemView(this).apply { initialize(R.mipmap.news, R.mipmap.news_select, "新闻") })
+                .addItem(NormalItemView(this).apply { initialize(R.mipmap.email, R.mipmap.email_select, "邮箱") })
                 .addItem(NormalItemView(this).apply { initialize(R.mipmap.me, R.mipmap.me_select, "我的") })
                 .build()
         navigationController.setupWithViewPager(viewPager)
-        viewPager.offscreenPageLimit = 3
+        viewPager.offscreenPageLimit = 4
         viewPager.adapter = MainPagerAdapter(supportFragmentManager)
     }
 

@@ -56,7 +56,7 @@ abstract class SpdAct : BaseAct() {
 
     val flowNodeAdapter = FlowNodeAdapter()
 
-    private fun initRecyclerView() {
+    private fun             initRecyclerView() {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SpdAct)
             flowNodeAdapter.bindToRecyclerView(this)
@@ -96,13 +96,7 @@ abstract class SpdAct : BaseAct() {
         ToSpd(model.menu, model.param, model.type).toMaybe(this).subscribe {
             spd = it
 
-            spd.flowNodeList.forEach { flowNode ->
-                flowNode.spyjList.forEach { item ->
-                    val flag1 = if (flowNode.flowNodeId != null) flowNode.flowNodeId.contains(spd.spdXx.nodeId)
-                    else item.spyjNodeId == spd.spdXx.nodeId
-                    item.isCurrentNode = flag1 && item.spyjStatus == 0 && item.createUserId == Global.loginInfo!!.userId
-                }
-            }
+
 
             // 供 equipmentAct 使用。
             Global.spd = spd
@@ -111,7 +105,14 @@ abstract class SpdAct : BaseAct() {
 
 //            处理审批意见
             if (model.type == "1") SpdHelper().addSpyjIfNeed(spd)
-
+            // 判断是能编辑放到新增 spyj 后
+            spd.flowNodeList.forEach { flowNode ->
+                flowNode.spyjList.forEach { item ->
+                    val flag1 = if (flowNode.flowNodeId != null) flowNode.flowNodeId.contains(spd.spdXx.nodeId)
+                    else item.spyjNodeId == spd.spdXx.nodeId
+                    item.isCurrentNode = flag1 && item.spyjStatus == 0 && item.createUserId == Global.loginInfo!!.userId
+                }
+            }
             flowNodeAdapter.setNewData(spd.flowNodeList)
 
             //

@@ -78,7 +78,7 @@ class SbwxInfoView(context: Context, menu: Menu, spd: Spd, isCreate: Boolean) : 
         }
 
         val nodeId = spd.nodeModel_1!!.nodeid
-        val canEdit = nodeId in listOf("OA_FLOW_XZZB_SBWX_XXZXYJ", "OA_FLOW_XZZB_SBWX_XXZXBL", "OA_FLOW_XZZB_SBWX_WXRY")
+        val canEdit = nodeId in listOf("OA_FLOW_XZZB_SBWX_XXZXYJ", "OA_FLOW_XZZB_SBWX_XXZXBL", "OA_FLOW_XZZB_SBWX_WXRY", "OA_FLOW_XZZB_SBWX_WX")
         tvCljg.isEnabled = canEdit
     }
 

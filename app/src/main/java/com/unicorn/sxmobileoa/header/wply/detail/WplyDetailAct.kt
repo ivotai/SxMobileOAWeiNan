@@ -20,7 +20,7 @@ class WplyDetailAct : BaseAct() {
 
     override fun initViews() {
         titleBar.setTitle("物品领用详情")
-        mAdapter = WplyAdapter(intent.getBooleanExtra(Key.isCreate, false))
+        mAdapter = WplyAdapter()
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@WplyDetailAct) as LinearLayoutManager
             mAdapter.bindToRecyclerView(this)

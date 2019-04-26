@@ -8,6 +8,7 @@ import com.unicorn.sxmobileoa.spd.model.Spd
 class Sbly(val spd: Spd, @IntRange(from = 1, to = 5) val position: Int) {
 
     val key_wpmc = "wpmc${position}_input"
+    val key_wpmc_select = "wpmc${position}_select"
     val key_sl = "sl${position}_input"
     val key_gg = "gg${position}_input"
     val key_pp = "pp${position}_input"
@@ -17,6 +18,7 @@ class Sbly(val spd: Spd, @IntRange(from = 1, to = 5) val position: Int) {
         get() = spd.get(key_wpmc)
         set(value) {
             spd.set(key_wpmc, value)
+            spd.set(key_wpmc_select,value)
         }
     var sl
         get() = spd.get(key_sl)

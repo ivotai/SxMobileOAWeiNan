@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.unicorn.sxmobileoa.R
 import com.unicorn.sxmobileoa.app.*
+import com.unicorn.sxmobileoa.app.Key.code
+import com.unicorn.sxmobileoa.app.Key.key
 import com.unicorn.sxmobileoa.app.Key.nodeId
+import com.unicorn.sxmobileoa.app.Key.title
 import com.unicorn.sxmobileoa.app.mess.MyHolder
 import com.unicorn.sxmobileoa.app.mess.RxBus
 import com.unicorn.sxmobileoa.app.mess.model.CodeResult
@@ -18,21 +21,28 @@ import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.item_equipment.*
 import kotlinx.android.synthetic.main.item_wply.*
 
-class SbbfDetailAdapter(val isCreate: Boolean) : BaseQuickAdapter<Sbbf, MyHolder>(R.layout.item_equipment) {
+class SbbfDetailAdapter : BaseQuickAdapter<Sbbf, MyHolder>(R.layout.item_equipment) {
 
-    val flag = Global.spd.nodeModel_1!!.nodeid in listOf("OA_FLOW_XZZB_SBBF_XXZSJD", "OA_FLOW_XZZB_SBBF_BGS", "OA_FLOW_XZZB_SBBF_BGSSH")
-    val flag2 = Global.spd.nodeModel_1!!.nodeid == "OA_FLOW_XZZB_SBBF_GDZCGLKZX"
+    private val nodeId = Global.spd.nodeModel_1!!.nodeid
+    private val canEditForCreator = nodeId == "OA_FLOW_XZZB_SBBF_SQR"
+    private val flag = nodeId in listOf("OA_FLOW_XZZB_SBBF_XXZSJD", "OA_FLOW_XZZB_SBBF_BGS", "OA_FLOW_XZZB_SBBF_BGSSH")
+    private val flag2 = nodeId == "OA_FLOW_XZZB_SBBF_GDZCGLKZX"
 
     override fun bindToRecyclerView(recyclerView: RecyclerView) {
         super.bindToRecyclerView(recyclerView)
         RxBus.get().registerEvent(CodeResult::class.java, recyclerView.context as LifecycleOwner, Consumer {
-            val key = it.key
-            Global.spd.set(key, it.result.text)
-            val pos = key.substring(5, 6).toInt()
+            val str = it.key.substring(0, it.key.indexOf("_"))
+            val pos = str.toInt()
+            if (pos == -1) return@Consumer
+            val item = data[pos]
+            if (it.key.contains("bfjg")) {
+                item.bfjg_select = it.result.text
+            } else {
+                item.sfzx_select = it.result.text
+            }
             notifyItemChanged(pos)
         })
     }
-
 
     override fun convert(helper: MyHolder, item: Sbbf) {
         helper.apply {
@@ -43,21 +53,35 @@ class SbbfDetailAdapter(val isCreate: Boolean) : BaseQuickAdapter<Sbbf, MyHolder
             tvBfjg.text = item.bfjg_select
             tvSfzx.text = item.sfzx_select
 
-            tvBfsbmc.isEnabled = isCreate
-            tvPpjxh.isEnabled = isCreate
-            tvSl.isEnabled = isCreate
+            tvBfsbmc.isEnabled = canEditForCreator
+            tvPpjxh.isEnabled = canEditForCreator
+            tvSl.isEnabled = canEditForCreator
         }
     }
 
     @SuppressLint("CheckResult")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         return super.onCreateViewHolder(parent, viewType).apply {
-            if (flag && adapterPosition != -1) {
+            if (flag) {
                 tvBfrq.clickDate(false)
-                tvBfjg.clickCode("报废结果", "XZZB_SBBF_BFJG", mData[adapterPosition].key_bfjg_select)
+                tvBfjg.safeClicks().subscribe {
+                    if (adapterPosition == -1) return@subscribe
+                    mContext.startActivity(Intent(mContext, CodeAct::class.java).apply {
+                        putExtra(Key.title, "报废结果")
+                        putExtra(Key.code, "XZZB_SBBF_BFJG")
+                        putExtra(Key.key, "${adapterPosition}_bfjg_select")
+                    })
+                }
             }
-            if (flag2 && adapterPosition != -1){
-                tvSfzx.clickCode("是否注销", "XZZB_SBBF_SFZX",  mData[adapterPosition].key_sfzx_select)
+            if (flag2) {
+                tvSfzx.safeClicks().subscribe {
+                    if (adapterPosition == -1) return@subscribe
+                    mContext.startActivity(Intent(mContext, CodeAct::class.java).apply {
+                        putExtra(Key.title, "是否注销")
+                        putExtra(Key.code, "XZZB_SBBF_SFZX")
+                        putExtra(Key.key, "${adapterPosition}_sfzx_select")
+                    })
+                }
             }
             tvBfsbmc.textChanges2().subscribe {
                 if (adapterPosition == -1) return@subscribe

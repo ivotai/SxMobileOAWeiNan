@@ -24,7 +24,10 @@ import kotlinx.android.synthetic.main.item_wply.*
 
 class SblyDetailAdapter(val isCreate: Boolean) : BaseQuickAdapter<Sbly, MyHolder>(R.layout.item_sbly) {
 
-    val canEdit = Global.spd.nodeModel_1!!.nodeid in listOf("OA_FLOW_XZZB_SBLY_XXZXQRCG", "OA_FLOW_XZZB_SBLY_BGSSH", "OA_FLOW_XZZB_SBLY_XXZXQDCGHW")
+    private val nodeId = Global.spd.nodeModel_1!!.nodeid
+    private val canEditForCreator = nodeId == "OA_FLOW_XZZB_SBLY_LYR"
+    private val canEdit = nodeId in listOf("OA_FLOW_XZZB_SBLY_XXZXQRCG", "OA_FLOW_XZZB_SBLY_BGSSH", "OA_FLOW_XZZB_SBLY_XXZXQDCGHW")
+    private val either = canEditForCreator || canEdit
 
     override fun bindToRecyclerView(recyclerView: RecyclerView) {
         super.bindToRecyclerView(recyclerView)
@@ -47,17 +50,17 @@ class SblyDetailAdapter(val isCreate: Boolean) : BaseQuickAdapter<Sbly, MyHolder
             tvPp.setText(item.pp)
             tvBz.setText(item.bz)
 
-            tvSl.isEnabled = canEdit
-            tvGg.isEnabled = canEdit
-            tvPp.isEnabled = canEdit
-            tvBz.isEnabled = canEdit
+            tvSl.isEnabled = either
+            tvGg.isEnabled = either
+            tvPp.isEnabled = either
+            tvBz.isEnabled = either
         }
     }
 
     @SuppressLint("CheckResult")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         return super.onCreateViewHolder(parent, viewType).apply {
-            if (canEdit){
+            if (either) {
                 tvWpmc.safeClicks().subscribe {
                     mContext.startActivity(Intent(mContext, CodeAct::class.java).apply {
                         putExtra(Key.title, "设备名称")

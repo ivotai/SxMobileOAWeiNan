@@ -1,5 +1,14 @@
+报废结果没存到
+超
+addParameter(Key.type, type)type 1 超审限 type 0 即将超审限
+
+------------------------------
+
 设备领用 设备报废
 onCreateViewHolder will be called many times.
+1. 判断是否编辑放在添加审批意见之后
+2. 物品领用 设备领用 select
+3. isCreate nodeId
 
 ------------------------------
 10/31

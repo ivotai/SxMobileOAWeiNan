@@ -8,6 +8,7 @@ import com.unicorn.sxmobileoa.spd.model.Spd
 class Wply(val spd: Spd, @IntRange(from = 1, to = 5) val position: Int) {
 
     val key_wpmc = "wpmc${position}_input"
+    val key_wpmc_select = "wpmc${position}_select"  // select 需要保存和 input 一样的值
     val key_gg = "gg${position}_input"
     val key_sqdw = "sqdw${position}_input"
     val key_sqsl = "sqsl${position}_input"
@@ -18,6 +19,7 @@ class Wply(val spd: Spd, @IntRange(from = 1, to = 5) val position: Int) {
         get() = spd.get(key_wpmc)
         set(value) {
             spd.set(key_wpmc, value)
+            spd.set(key_wpmc_select, value)
         }
     var gg
         get() = spd.get(key_gg)

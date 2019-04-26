@@ -65,7 +65,7 @@ class GcsqInfoView(context: Context, menu: Menu, spd: Spd, isCreate: Boolean) : 
         // 展示值
         tvTitle.text = "${Global.court!!.dmms}${menu.text}"
         spd.spdXx.apply {
-            tvBt.setText(bt)
+                tvBt.setText(bt)
             tvKsrq.text = column3
             tvJsrq.text = column4
         }

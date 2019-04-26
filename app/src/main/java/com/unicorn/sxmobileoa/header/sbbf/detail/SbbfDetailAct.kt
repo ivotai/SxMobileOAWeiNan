@@ -17,7 +17,7 @@ class SbbfDetailAct : BaseAct() {
     private lateinit var mAdapter : SbbfDetailAdapter
 
     override fun initViews() {
-        mAdapter = SbbfDetailAdapter(intent.getBooleanExtra(Key.isCreate,false))
+        mAdapter = SbbfDetailAdapter()
         titleBar.setTitle("设备报废详情")
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SbbfDetailAct)
