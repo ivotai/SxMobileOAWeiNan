@@ -5,10 +5,10 @@ import com.unicorn.sxmobileoa.app.di.ComponentHolder
 import com.unicorn.sxmobileoa.app.network.BaseUseCase
 import com.unicorn.sxmobileoa.n.csx.model.Csx
 
-class GetSpcsx : BaseUseCase<List<Csx>>() {
+class GetCsx(val type: Int) : BaseUseCase<List<Csx>>() {
 
     init {
-        request = SpcsxRequest()
+        request = CsxRequest(type)
     }
 
     override fun toResult(json: String): List<Csx> {
