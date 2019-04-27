@@ -77,11 +77,10 @@
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
-
         <EditText
             android:enabled="false"
             android:background="@null"
-            android:inputType="text"
+            android:inputType="numberSigned"
             android:id="@+id/tvSl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

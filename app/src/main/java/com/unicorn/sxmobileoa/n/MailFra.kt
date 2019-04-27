@@ -33,12 +33,12 @@ class MailFra : BaseFra() {
             }
         }
 
-        val url2 = "http://113.200.190.227:8082/mailProject/appIndex/appLogin?userId=${Global.loginInfo!!.userId}"
-        val url = "https://www.baidu.com/"
-        webView.loadUrl(url2)
+        val url = "http://113.200.190.227:8082/mailProject/appIndex/appLogin?userId=${Global.loginInfo!!.userId}"
+        webView.loadUrl(url)
     }
 
     override fun bindIntent() {
     }
+
 
 }
