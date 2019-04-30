@@ -113,63 +113,12 @@
         <TextView
             android:layout_width="@dimen/detail_width"
             android:layout_height="wrap_content"
-            android:text="承办部门"
+            android:text="接待部门"
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
         <TextView
             android:id="@+id/tvCbbm"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/md_grey_400"
-            android:textSize="14dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1px"
-        android:background="@color/md_white"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="@dimen/detail_width"
-            android:layout_height="wrap_content"
-            android:text="就餐地点"
-            android:textColor="@color/md_grey_700"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/tvJcdd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/md_grey_400"
-            android:textSize="14dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1px"
-        android:background="@color/md_white"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="@dimen/detail_width"
-            android:layout_height="wrap_content"
-            android:paddingEnd="16dp"
-            android:text="承办人"
-            android:textColor="@color/md_grey_700"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/tvCbr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -284,7 +233,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:enabled="false"
-            android:inputType="text"
+            android:inputType="numberSigned"
             android:textColor="@color/md_grey_400"
             android:textSize="14dp" />
 
@@ -332,11 +281,14 @@
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
-        <TextView
+        <EditText
             android:id="@+id/tvPtry"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@null"
+            android:enabled="false"
+            android:inputType="text"
             android:textColor="@color/md_grey_400"
             android:textSize="14dp" />
 
@@ -361,13 +313,15 @@
         <EditText
             android:id="@+id/tvLfsy"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@null"
+            android:background="@color/md_red_300"
             android:enabled="false"
+            android:gravity="start|top"
             android:inputType="text"
             android:textColor="@color/md_grey_400"
             android:textSize="14dp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -382,7 +336,7 @@
             android:layout_width="@dimen/detail_width"
             android:layout_height="wrap_content"
             android:paddingEnd="16dp"
-            android:text="接待金额"
+            android:text="接待费用预算"
             android:textColor="@color/md_grey_700"
             android:textSize="14dp" />
 
@@ -393,7 +347,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:enabled="false"
-            android:inputType="text"
+            android:inputType="number"
             android:textColor="@color/md_grey_400"
             android:textSize="14dp" />
 
@@ -402,6 +356,32 @@
             android:layout_height="wrap_content"
             android:text="元"
             android:textColor="@color/md_grey_700"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/md_white"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="@dimen/detail_width"
+            android:layout_height="wrap_content"
+            android:paddingEnd="16dp"
+            android:text="类型"
+            android:textColor="@color/md_grey_700"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tvLx"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/md_grey_400"
             android:textSize="14dp" />
 
     </LinearLayout>

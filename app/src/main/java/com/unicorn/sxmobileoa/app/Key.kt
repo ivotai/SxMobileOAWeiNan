@@ -98,10 +98,12 @@ object  Key {
     const val xm_input = "xm_input"
     const val lfrs_input = "lfrs_input"
     const val jb_select = "jb_select"
+    const val jb_input = "jb_input"
     const val ptry_input = "ptry_input"
     const val lfsy_textarea = "lfsy_textarea"
     const val jdje_input = "jdje_input"
-
+    const val lx_select = "lx_select"
+    const val lx_input = "lx_input"
 
     // ycsq
     const val ts_input = "ts_input"
