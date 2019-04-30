@@ -89,21 +89,21 @@ class JdsqInfoView(context: Context, menu: Menu, spd: Spd, isCreate: Boolean) : 
             tvLfkrdw.isEnabled = true
             tvXm.isEnabled = true
             tvLfrs.isEnabled = true
-            tvJb.clickCode("级别", "JDGL_JDJLSQ_JB", Key.jb_select)
+            tvJb.clickCode("级别", "JDGL_JDJLSQ_JB", Key.jb_input)
             tvPtry.isEnabled = true
             tvLfsy.isEnabled = true
             tvJdje.isEnabled = true
-            tvLx.clickCode("类型", "JDGL_JDSQ_LX", Key.lx_select)
+            tvLx.clickCode("类型", "JDGL_JDSQ_LX", Key.lx_input)
             tvBz.isEnabled = true
             RxBus.get().registerEvent(TextResult::class.java, context as LifecycleOwner, Consumer {
                 when (it.key) {
                     Key.cbbmmc_input -> tvCbbm.text = it.result
-                    Key.jb_select -> {
+                    Key.jb_input -> {
                         tvJb.text = it.result
                         spd.set(Key.jb_select, it.result)
                         spd.set(Key.jb_input, it.result)
                     }
-                    Key.lx_select  ->{
+                    Key.lx_input  ->{
                         tvLx.text = it.result
                         spd.set(Key.lx_select, it.result)
                         spd.set(Key.lx_input, it.result)
