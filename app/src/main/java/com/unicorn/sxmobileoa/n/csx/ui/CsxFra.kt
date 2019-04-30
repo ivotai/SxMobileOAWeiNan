@@ -15,13 +15,20 @@ class CsxFra : BaseFra() {
 
     override val layoutId = R.layout.recycler
 
+    var type = 0
+
+    override fun initArguments() {
+        type = arguments!!.getInt(Key.type)
+    }
+
     override fun initViews() {
         initRecyclerView()
     }
 
-    private val mAdapter = CsxAdapter()
+    private lateinit var mAdapter : CsxAdapter
 
     private fun initRecyclerView() {
+        mAdapter = CsxAdapter(type ==1)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             mAdapter.bindToRecyclerView(this)
@@ -32,7 +39,6 @@ class CsxFra : BaseFra() {
 
     @SuppressLint("CheckResult")
     override fun bindIntent() {
-        val type = arguments!!.getInt(Key.type)
         GetCsx(type).toMaybe(this).subscribe {
             mAdapter.setNewData(it)
             val index = if (type == 1) 0 else 1

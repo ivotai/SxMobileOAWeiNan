@@ -13,9 +13,10 @@ import java.io.IOException
 class UpdateHelper {
 
     fun checkUpdate() {
-        val url = "${ConfigModule.baseUrl}oaDownload.do?fybm=${Global.court!!.dm}&versNum=${AppUtils.getAppVersionName()}"
+        val url2 = "${ConfigModule.baseUrl}appUpdateCt/getNewApk?versNum=${AppUtils.getAppVersionName()}"
+//        val url = "${ConfigModule.baseUrl}oaDownload.do?fybm=${Global.court!!.dm}&versNum=${AppUtils.getAppVersionName()}"
         val client = OkHttpClient()
-        val request = Request.Builder().get().url(url).build()
+        val request = Request.Builder().get().url(url2).build()
         val call = client.newCall(request)
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

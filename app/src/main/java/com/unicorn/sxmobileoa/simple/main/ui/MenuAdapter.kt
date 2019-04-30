@@ -22,7 +22,7 @@ class MenuAdapter : BaseQuickAdapter<Menu, MyHolder>(R.layout.item_menu) {
             tvText.text = item.text
             tvCount.text = item.count.toString()
             flCount.visibility = if (item.count == 0) View.INVISIBLE else View.VISIBLE
-            helper.setImageResource(R.id.ivImage, item.resId)
+                helper.setImageResource(R.id.ivImage, item.resId)
             root.safeClicks().subscribe {
                 if (item.text == "超审限") {
                     mContext.startActivity(Intent(mContext, CsxPagerAct::class.java))

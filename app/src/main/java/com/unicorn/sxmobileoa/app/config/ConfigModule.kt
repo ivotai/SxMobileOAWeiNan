@@ -16,9 +16,9 @@ class ConfigModule {
         }
 
         //        const val baseUrl = "http://192.168.20.100:8090/reqChaOne/"
-//        const val baseUrl = "http://219.145.168.171:8787/appListener/"
+        const val baseUrl = "http://219.145.168.171:8787/appListener/"
 
-        const val baseUrl = "http://113.200.190.227:8081/appListener/"
+//        const val baseUrl = "http://113.200.190.227:8081/appListener/"
 //        const val baseUrl = "http://154.0.21.193:8189/busiGate/" // 内网
 //        const val baseUrl = "http://113.200.190.226:10000/reqChaOne/" // 高院的外网
 

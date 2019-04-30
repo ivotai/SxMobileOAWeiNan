@@ -7,13 +7,13 @@ import com.unicorn.sxmobileoa.app.mess.MyHolder
 import com.unicorn.sxmobileoa.n.csx.model.Csx
 import kotlinx.android.synthetic.main.item_csx.*
 
-class CsxAdapter : BaseQuickAdapter<Csx, MyHolder>(R.layout.item_csx) {
+class CsxAdapter(val csx: Boolean) : BaseQuickAdapter<Csx, MyHolder>(R.layout.item_csx) {
 
     @SuppressLint("SetTextI18n")
     override fun convert(helper: MyHolder, item: Csx) {
         helper.apply {
-            tvAhqc.text = "${adapterPosition+1}. ${item.ahqc}"
-            tvCsxts.text = "(超期${item.csxts}天)"
+            tvAhqc.text = "${adapterPosition + 1}. ${item.ajmc}"
+            tvCsxts.text = if (csx) "(超期${item.csxts}天)" else "(剩余${item.csxts}天)"
         }
     }
 
