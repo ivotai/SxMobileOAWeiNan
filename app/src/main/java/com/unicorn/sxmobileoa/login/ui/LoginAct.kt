@@ -47,25 +47,6 @@ class LoginAct : BaseAct() {
         restoreInputInfo()
     }
 
-    private fun showListDialog() {
-        val list = listOf(
-                LoginUser("系统管理员", "0000", "admin")
-//                LoginUser("杨继锋", "0704", "admin"),
-//                LoginUser("周晓平", "0115", "admin"),
-//                LoginUser("郭建军", "0902", "admin"),
-//                LoginUser("杨明德", "yangmd", "admin"),
-//                LoginUser("覃亮", "qinliang", "0000")
-        )
-        MaterialDialog.Builder(this)
-                .items(list.map { it.name })
-                .itemsCallback { _, _, position, _ ->
-                    val loginUser = list[position]
-                    etUsername.setText(loginUser.loginName)
-                    etPassword.setText(loginUser.password)
-                    login()
-                }.show()
-    }
-
     private fun login() {
         Login(etUsername.trimText(), etPassword.trimText()).toMaybe(this).subscribe { loginInfo ->
             Global.loginInfo = loginInfo

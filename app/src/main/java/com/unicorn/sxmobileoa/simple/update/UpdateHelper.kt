@@ -13,7 +13,7 @@ import java.io.IOException
 class UpdateHelper {
 
     fun checkUpdate() {
-        val url2 = "${ConfigModule.baseUrl}appUpdateCt/getNewApk?versNum=${AppUtils.getAppVersionName()}"
+        val url2 = "http://219.145.168.171:8089/appListener/appUpdateCt/getNewApk?versNum=${AppUtils.getAppVersionName()}"
 //        val url = "${ConfigModule.baseUrl}oaDownload.do?fybm=${Global.court!!.dm}&versNum=${AppUtils.getAppVersionName()}"
         val client = OkHttpClient()
         val request = Request.Builder().get().url(url2).build()

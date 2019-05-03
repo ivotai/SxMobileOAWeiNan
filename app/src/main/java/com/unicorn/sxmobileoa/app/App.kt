@@ -9,6 +9,7 @@ import com.facebook.stetho.Stetho
 import com.google.gson.JsonSyntaxException
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import com.unicorn.sxmobileoa.app.port.PortConfigHelper
 import io.reactivex.exceptions.OnErrorNotImplementedException
 import io.reactivex.plugins.RxJavaPlugins
 import net.danlew.android.joda.JodaTimeAndroid
@@ -27,6 +28,7 @@ class App : Application() {
         Logger.addLogAdapter(AndroidLogAdapter())
         Utils.init(this)
         Stetho.initializeWithDefaults(this)
+        PortConfigHelper.init(this)
     }
 
     private fun setErrorHandler() {

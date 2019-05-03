@@ -11,6 +11,7 @@ import android.webkit.SslErrorHandler
 import android.webkit.WebSettings.LOAD_NO_CACHE
 import com.unicorn.sxmobileoa.R
 import com.unicorn.sxmobileoa.app.Global
+import com.unicorn.sxmobileoa.app.config.ConfigModule
 
 
 class MailFra : BaseFra() {
@@ -45,8 +46,7 @@ class MailFra : BaseFra() {
             }
         }
 
-        val url = "http://219.145.168.171:8585/mailProject/appIndex/appLogin?userId=${Global.loginInfo!!.userId}"
-//        val url = "http://113.200.190.227:8082/mailProject/appIndex/appLogin?userId=${Global.loginInfo!!.userId}"
+        val url = "http://${ConfigModule.ip}:${ConfigModule.mailPort}/mailProject/appIndex/appLogin?userId=${Global.loginInfo!!.userId}"
         webView.loadUrl(url)
     }
 

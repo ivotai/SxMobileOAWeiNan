@@ -42,8 +42,7 @@ class MainAct2 : BaseAct() {
     }
 
     override fun bindIntent() {
-//       s()
-        UpdateHelper().checkUpdate()
+//        UpdateHelper().checkUpdate()
     }
 
     override fun registerEvent() {
