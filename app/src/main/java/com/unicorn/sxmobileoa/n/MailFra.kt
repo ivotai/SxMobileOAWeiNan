@@ -1,57 +1,39 @@
 package com.unicorn.sxmobileoa.n
 
-import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
 import com.unicorn.sxmobileoa.app.ui.BaseFra
 import kotlinx.android.synthetic.main.fra_mail.*
-import kotlinx.android.synthetic.main.my_fra.titleBar
-import android.webkit.WebView
-import android.net.http.SslError
-import android.webkit.SslErrorHandler
 import android.webkit.WebSettings.LOAD_NO_CACHE
-import com.unicorn.sxmobileoa.R
+
 import com.unicorn.sxmobileoa.app.Global
 import com.unicorn.sxmobileoa.app.config.ConfigModule
-
+import android.content.Intent
+import android.net.Uri
 
 class MailFra : BaseFra() {
 
-    override val layoutId = R.layout.fra_mail
+    override val layoutId = com.unicorn.sxmobileoa.R.layout.fra_mail
 
     override fun initViews() {
-        webView.settings.apply {
-            javaScriptEnabled = true
-            cacheMode = LOAD_NO_CACHE
-        }
-//        swipeRefreshLayout.setOnRefreshListener { webView.reload() }
-//        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
-
-//        webView.webChromeClient= object :WebChromeClient()
-//        {
-//            override fun onProgressChanged(view: WebView?, newProgress: Int) {
-//                if(newProgress == 100){
-//                    swipeRefreshLayout.isRefreshing = false
-//                }
-//            }
-//
-
-        webView.webViewClient = object : WebViewClient() {
-            override fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {
-                handler.proceed()
+        webView.apply {
+            settings.apply {
+                javaScriptEnabled = true
+                cacheMode = LOAD_NO_CACHE
             }
-
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                view.loadUrl(url)
-                return true
-            }
+            webViewClient = WebViewClient()
+            val mailUrl = "http://${ConfigModule.ip}:${ConfigModule.mailPort}/mailProject/appIndex/appLogin?userId=${Global.loginInfo!!.userId}"
+            loadUrl(mailUrl)
         }
 
-        val url = "http://${ConfigModule.ip}:${ConfigModule.mailPort}/mailProject/appIndex/appLogin?userId=${Global.loginInfo!!.userId}"
-        webView.loadUrl(url)
+        webView.setDownloadListener { url, userAgent, contentDisposition, mimeType, contentLength ->
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.addCategory(Intent.CATEGORY_BROWSABLE)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
     }
 
     override fun bindIntent() {
     }
-
 
 }

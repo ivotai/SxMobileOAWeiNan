@@ -10,14 +10,17 @@ import com.unicorn.sxmobileoa.app.mess.RxBus
 import com.unicorn.sxmobileoa.app.ui.BaseAct
 import com.unicorn.sxmobileoa.login.ui.LoginAct
 import com.unicorn.sxmobileoa.simple.main.Update
+import com.unicorn.sxmobileoa.simple.main.mail.MailCountEvent
+import com.unicorn.sxmobileoa.simple.main.mail.MailCountHelper
 import com.unicorn.sxmobileoa.simple.main.network.loginout.LoginOut
 import com.unicorn.sxmobileoa.simple.update.UpdateHelper
 import com.zhy.http.okhttp.OkHttpUtils
 import com.zhy.http.okhttp.callback.FileCallBack
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.act_main2.*
+import me.majiajie.pagerbottomtabstrip.NavigationController
 import me.majiajie.pagerbottomtabstrip.item.NormalItemView
-import okhttp3.Call
+import okhttp3.*
 import java.io.File
 
 class MainAct2 : BaseAct() {
@@ -28,8 +31,10 @@ class MainAct2 : BaseAct() {
         initViewPager()
     }
 
+    private lateinit var navigationController: NavigationController
+
     private fun initViewPager() {
-        val navigationController = tab.custom()
+        navigationController = tab.custom()
                 .addItem(NormalItemView(this).apply { initialize(R.mipmap.home, R.mipmap.home_select, "首页") })
                 .addItem(NormalItemView(this).apply { initialize(R.mipmap.notice, R.mipmap.notice_select, "公告") })
                 .addItem(NormalItemView(this).apply { initialize(R.mipmap.news, R.mipmap.news_select, "新闻") })
@@ -39,10 +44,13 @@ class MainAct2 : BaseAct() {
         navigationController.setupWithViewPager(viewPager)
         viewPager.offscreenPageLimit = 4
         viewPager.adapter = MainPagerAdapter(supportFragmentManager)
+
+        MailCountHelper().getMailCountIncessantly(this)
     }
 
+
     override fun bindIntent() {
-//        UpdateHelper().checkUpdate()
+        UpdateHelper().checkUpdate()
     }
 
     override fun registerEvent() {
@@ -55,6 +63,10 @@ class MainAct2 : BaseAct() {
 
         RxBus.get().registerEventOnMain(Update::class.java, this, Consumer {
             showUpdateDialog(it.apkUrl)
+        })
+
+        RxBus.get().registerEventOnMain(MailCountEvent::class.java, this, Consumer {
+            navigationController.setMessageNumber(3, it.count)
         })
     }
 

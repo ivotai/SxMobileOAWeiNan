@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.blankj.utilcode.util.ToastUtils
 import com.unicorn.sxmobileoa.R
 import com.unicorn.sxmobileoa.app.*
+import com.unicorn.sxmobileoa.app.Key.key
 import com.unicorn.sxmobileoa.app.mess.RxBus
 import com.unicorn.sxmobileoa.app.mess.model.TextResult
 import com.unicorn.sxmobileoa.header.BasicInfoView
@@ -74,7 +75,7 @@ class JdsqInfoView(context: Context, menu: Menu, spd: Spd, isCreate: Boolean) : 
 
         // 展示值
         tvTitle.text = "${Global.court!!.dmms}${menu.text}"
-        tvBt.text = spd.spdXx.bt
+        tvBt.setText(spd.spdXx.bt)
         pairs.forEach { pair ->
             pair.apply {
                 textView.text = spd.get(key)
@@ -84,6 +85,7 @@ class JdsqInfoView(context: Context, menu: Menu, spd: Spd, isCreate: Boolean) : 
 
     private fun canEdit(spd: Spd, isCreate: Boolean) {
         if (isCreate) {
+            tvBt.isEnabled = true
             tvCbbm.clickDept(Key.cbbmmc_input)
             tvJdrq.clickDate(false)
             tvLfkrdw.isEnabled = true
@@ -103,7 +105,7 @@ class JdsqInfoView(context: Context, menu: Menu, spd: Spd, isCreate: Boolean) : 
                         spd.set(Key.jb_select, it.result)
                         spd.set(Key.jb_input, it.result)
                     }
-                    Key.lx_input  ->{
+                    Key.lx_input -> {
                         tvLx.text = it.result
                         spd.set(Key.lx_select, it.result)
                         spd.set(Key.lx_input, it.result)

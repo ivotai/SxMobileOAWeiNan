@@ -1,22 +1,22 @@
 package com.unicorn.sxmobileoa.simple.update
 
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.orhanobut.logger.Logger
-import com.unicorn.sxmobileoa.app.Global
 import com.unicorn.sxmobileoa.app.config.ConfigModule
 import com.unicorn.sxmobileoa.app.di.ComponentHolder
 import com.unicorn.sxmobileoa.app.mess.RxBus
 import com.unicorn.sxmobileoa.simple.main.Update
 import okhttp3.*
 import java.io.IOException
+import java.lang.Exception
 
 class UpdateHelper {
 
     fun checkUpdate() {
-        val url2 = "http://219.145.168.171:8089/appListener/appUpdateCt/getNewApk?versNum=${AppUtils.getAppVersionName()}"
-//        val url = "${ConfigModule.baseUrl}oaDownload.do?fybm=${Global.court!!.dm}&versNum=${AppUtils.getAppVersionName()}"
+        val url = "http://${ConfigModule.ip}:${ConfigModule.updatePort}/appListener_r50/appUpdateCt/getNewApk?versNum=${AppUtils.getAppVersionName()}"
         val client = OkHttpClient()
-        val request = Request.Builder().get().url(url2).build()
+        val request = Request.Builder().get().url(url).build()
         val call = client.newCall(request)
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -24,9 +24,13 @@ class UpdateHelper {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val json = response.body()!!.string()
-                val updateResponse = ComponentHolder.appComponent.getGson().fromJson(json, UpdateResponse::class.java)
-                copeUpdateResponse(updateResponse)
+                try {
+                    val json = response.body()!!.string()
+                    val updateResponse = ComponentHolder.appComponent.getGson().fromJson(json, UpdateResponse::class.java)
+                    copeUpdateResponse(updateResponse)
+                } catch (e: Exception) {
+                    ToastUtils.showShort("更新异常")
+                }
             }
         })
     }

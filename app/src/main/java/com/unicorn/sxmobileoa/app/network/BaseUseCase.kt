@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.unicorn.sxmobileoa.app.Global
 import com.unicorn.sxmobileoa.app.Key
 import com.unicorn.sxmobileoa.app.common
+import com.unicorn.sxmobileoa.app.config.ConfigModule
 import com.unicorn.sxmobileoa.app.di.ComponentHolder
 import com.unicorn.sxmobileoa.app.network.model.Response
 import com.unicorn.sxmobileoa.app.network.model.SimpleResponse
@@ -27,8 +28,9 @@ abstract class BaseUseCase<Result> {
 
     fun toMaybe(lifecycleOwner: LifecycleOwner): Maybe<Result> {
         val requestXml = toXml(request)
-        val requestBody = RequestBody.create(MediaType.parse("text/xml"), requestXml)
-        return ComponentHolder.appComponent.getUniqueApi().post(Global.court?.dm ?: "", requestBody)
+            val requestBody = RequestBody.create(MediaType.parse("text/xml"), requestXml)
+//        return ComponentHolder.appComponent.getUniqueApi().post(Global.court?.dm ?: "", requestBody)
+        return ComponentHolder.appComponent.getUniqueApi().post(ConfigModule.fydm, requestBody)
                 .map {
                     return@map toSimpleResponse(it)
                 }

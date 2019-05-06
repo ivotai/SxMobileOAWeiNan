@@ -1,5 +1,6 @@
 package com.unicorn.sxmobileoa.app.network
 
+import android.content.RestrictionsManager
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.ihsanbal.logging.Level
@@ -8,6 +9,7 @@ import com.unicorn.sxmobileoa.BuildConfig
 import com.unicorn.sxmobileoa.app.config.ConfigModule
 import dagger.Module
 import dagger.Provides
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import okhttp3.OkHttpClient
 import okhttp3.internal.platform.Platform
 import retrofit2.Retrofit
@@ -43,19 +45,23 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(loggingInterceptor: LoggingInterceptor): OkHttpClient = OkHttpClient.Builder()
-            .addNetworkInterceptor(StethoInterceptor())
-            .addNetworkInterceptor(loggingInterceptor)
-            // TODO 可能需要配置更多参数
-            .readTimeout(10, TimeUnit.SECONDS)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .build()
+    fun provideOkHttpClient(loggingInterceptor: LoggingInterceptor): OkHttpClient {
+        val okHttpClientBuilder = OkHttpClient.Builder()
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+        val okHttpClient = RetrofitUrlManager.getInstance().with(okHttpClientBuilder)
+                .addNetworkInterceptor(StethoInterceptor())
+                .addNetworkInterceptor(loggingInterceptor)
+                .build()
+        RetrofitUrlManager.getInstance().setGlobalDomain(ConfigModule.baseUrl)
+        return okHttpClient
+    }
 
     @Suppress("DEPRECATION")
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-            .baseUrl(ConfigModule.baseUrl)
+            .baseUrl("https://www.baidu.com/")
             .client(okHttpClient)
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

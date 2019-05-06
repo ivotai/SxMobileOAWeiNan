@@ -7,7 +7,7 @@ import com.unicorn.sxmobileoa.app.config.ConfigModule
 open class MaybeRequest(busiCode: String) : request(busiCode) {
 
     init {
-        addParameter(Key.fydm, (Global.court?.dm ?: ConfigModule.defaultFydm))
+        addParameter(Key.fydm, ConfigModule.fydm)
         Global.loginInfo?.userId?.let { addParameter(Key.userId, it) }
     }
 

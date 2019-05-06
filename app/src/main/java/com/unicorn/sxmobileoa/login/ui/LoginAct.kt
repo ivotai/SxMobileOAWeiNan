@@ -8,6 +8,7 @@ import com.github.florent37.rxsharedpreferences.RxSharedPreferences
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.unicorn.sxmobileoa.R
 import com.unicorn.sxmobileoa.app.*
+import com.unicorn.sxmobileoa.app.config.ConfigModule
 import com.unicorn.sxmobileoa.app.di.ComponentHolder
 import com.unicorn.sxmobileoa.app.mess.RxBus
 import com.unicorn.sxmobileoa.app.ui.BaseAct
@@ -20,6 +21,7 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Function3
 import kotlinx.android.synthetic.main.act_login.*
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 
 @SuppressLint("CheckResult")
 class LoginAct : BaseAct() {
@@ -40,7 +42,9 @@ class LoginAct : BaseAct() {
 
     override fun bindIntent() {
         observeInput()
-        tvCourt.safeClicks().subscribe { startActivity(Intent(this@LoginAct, CourtAct::class.java)) }
+        tvCourt.safeClicks().subscribe {
+            startActivity(Intent(this@LoginAct, CourtAct::class.java))
+        }
         btnLogin.safeClicks().subscribe {
             login()
         }
@@ -89,6 +93,7 @@ class LoginAct : BaseAct() {
         RxBus.get().registerEvent(Court::class.java, this, Consumer { court ->
             Global.court = court
             tvCourt.text = court.dmms
+            RetrofitUrlManager.getInstance().setGlobalDomain(ConfigModule.baseUrl)
         })
     }
 
